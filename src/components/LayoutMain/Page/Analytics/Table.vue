@@ -8,7 +8,6 @@
                     :head="head"
                     :myid="index"
                 />
-                <div class="ggg">0</div>
             </tr>
         </thead>
         <tbody>
@@ -23,6 +22,7 @@
 <script>
 import TableString from "./TableString.vue";
 import TableHeaderParams from "./TableHeaderParams.vue";
+import {mapActions} from "vuex"
 
 export default {
     data() {
@@ -68,70 +68,70 @@ export default {
     },
     watch: {},
     methods: {
-        mouseTracking() {
-            this.mouseDown = true;
-        },
-        indexTracking(){
-            this.index = index
-        },
-        disableMouseTracking() {
-            if (this.mouseDown === true) {
-                this.mouseDown = false;
-                console.log("Dis");
-            }
-        },
-        cursorMoving() {
-            if (this.mouseDown === true) {
-                console.log(event.pageX);
-                this.right = event.pageX;
-                console.log(this.right + "px");
-                this.changeWidth(`#theader`);
-            }
-        },
-        getCoords(elem) {
-            let box = elem.getBoundingClientRect();
+        
+        // mouseTracking() {
+        //     this.mouseDown = true;
+        // },
+        // indexTracking(){
+        //     this.index = index
+        // },
+        // disableMouseTracking() {
+        //     if (this.mouseDown === true) {
+        //         this.mouseDown = false;
+        //         console.log("Dis");
+        //     }
+        // },
+        // cursorMoving() {
+        //     if (this.mouseDown === true) {
+        //         console.log(event.pageX);
+        //         this.right = event.pageX;
+        //         console.log(this.right + "px");
+        //         this.changeWidth(`#theader`);
+        //     }
+        // },
+        // getCoords(elem) {
+        //     let box = elem.getBoundingClientRect();
 
-            return {
-                left: box.left + window.pageXOffset,
-                right: box.right + window.pageXOffset,
-            };
-        },
-        cords(el) {
-            let array = document.querySelectorAll(el);
-            const arrBlock = [];
-            for (let index = 0; index < array.length; index++) {
-                const element = array[index];
-                const computedWidth = Number(
-                    this.getCoords(element).right - this.getCoords(element).left
-                );
-                arrBlock[index] = {
-                    id: "theader" + index,
-                    left: this.getCoords(element).left,
-                    right: this.getCoords(element).right,
-                    width: computedWidth + "px",
-                };
-                console.dir(element)
-            }
-            console.log(arrBlock);
-        },
-        changeWidth(el) {
-            // this.right = this.getCoords(document.querySelector(el)).right;
-            let heh
-            this.left = this.getCoords(document.querySelector(el)).left;
-            console.log(this.left + "LOOOOOOK");
-            console.log(this.right - this.left + "px CHANGED");
-            return (
-                (this.trackingWidth = this.right - this.left + "px"),
-                console.log(this.trackingWidth + " Моя ширина")
-            );
-        },
+        //     return {
+        //         left: box.left + window.pageXOffset,
+        //         right: box.right + window.pageXOffset,
+        //     };
+        // },
+        // cords(el) {
+        //     let array = document.querySelectorAll(el);
+        //     const arrBlock = [];
+        //     for (let index = 0; index < array.length; index++) {
+        //         const element = array[index];
+        //         const computedWidth = Number(
+        //             this.getCoords(element).right - this.getCoords(element).left
+        //         );
+        //         arrBlock[index] = {
+        //             id: "theader" + index,
+        //             left: this.getCoords(element).left,
+        //             right: this.getCoords(element).right,
+        //             width: computedWidth + "px",
+        //         };
+        //         console.dir(element)
+        //     }
+        //     console.log(arrBlock);
+        // },
+        // changeWidth(el) {
+        //     // this.right = this.getCoords(document.querySelector(el)).right;
+        //     let heh
+        //     this.left = this.getCoords(document.querySelector(el)).left;
+        //     console.log(this.left + "LOOOOOOK");
+        //     console.log(this.right - this.left + "px CHANGED");
+        //     return (
+        //         (this.trackingWidth = this.right - this.left + "px"),
+        //         console.log(this.trackingWidth + " Моя ширина")
+        //     );
+        // },
     },
     mounted() {
         // this.cords('.theader')
         // console.log(this.getCoords(document.querySelector('.ggg')).left)
         // console.log(this.getCoords(document.querySelector('.ggg')).right)
         // this.changeWidth(".theader");
-        this.cords(".theader");
     },
 };
 </script>

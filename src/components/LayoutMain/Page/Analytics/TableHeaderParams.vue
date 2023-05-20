@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
     props: {
         head: {
@@ -24,45 +26,51 @@ export default {
             type: Number,
         },
     },
-    data() {
-        return {
-            mouseDown: null,
-            trackingWidth: null,
-        };
-    },
-    methods: {
-        mouseTracking() {
-            this.mouseDown = true;
-            this.changeWidth(`#theader${this.myid}`);
-        },
-        disableMouseTracking() {
-            if (this.mouseDown === true) {
-                this.mouseDown = false;
-                console.log("Dis");
-            }
-        },
-        cursorMoving() {
-            if (this.mouseDown === true) {
-                this.changeWidth(`#theader${this.myid}`);
-            }
-        },
-        getCoords(elem) {
-            let box = elem.getBoundingClientRect();
+    // data() {
+    //     // return {
+    //     //     mouseDown: null,
+    //     //     trackingWidth: null,
+    //     // };
+    // },
+    // methods: {
+    //     mouseTracking() {
+    //         this.mouseDown = true;
+    //         this.changeWidth(`#theader${this.myid}`);
+    //     },
+    //     disableMouseTracking() {
+    //         if (this.mouseDown === true) {
+    //             this.mouseDown = false;
+    //             console.log("Dis");
+    //         }
+    //     },
+    //     cursorMoving() {
+    //         if (this.mouseDown === true) {
+    //             this.changeWidth(`#theader${this.myid}`);
+    //         }
+    //     },
+    //     getCoords(elem) {
+    //         let box = elem.getBoundingClientRect();
 
-            return {
-                left: box.left + window.pageXOffset,
-                right: box.right + window.pageXOffset,
-            };
-        },
-        changeWidth(el) {
-            const rightSide = event.pageX;
-            const leftSide = this.getCoords(document.querySelector(el)).left;
-            this.trackingWidth = rightSide - leftSide + "px";
-            console.log(this.trackingWidth + " Моя ширина");
-        },
+    //         return {
+    //             left: box.left + window.pageXOffset,
+    //             right: box.right + window.pageXOffset,
+    //         };
+    //     },
+    //     changeWidth(el) {
+    //         const rightSide = event.pageX;
+    //         const leftSide = this.getCoords(document.querySelector(el)).left;
+    //         this.trackingWidth = rightSide - leftSide + "px";
+    //         console.log(this.trackingWidth + " Моя ширина");
+    //     },
+    // },
+    methods: {
+      ...mapActions({
+        mouseEvents: "analytics/mouseEvents"
+      })  
     },
     mounted() {
         console.log(this.myid);
+        this.mouseEvents(`#theader${this.myid}`).disable
     },
 };
 </script>
